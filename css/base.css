@@ -1,0 +1,750 @@
+﻿@charset "utf-8";
+* {
+    -moz-box-sizing: border-box; /*Firefox3.5+*/
+    -webkit-box-sizing: border-box; /*Safari3.2+*/
+    -o-box-sizing: border-box; /*Opera9.6*/
+    -ms-box-sizing: border-box; /*IE8*/
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    outline: none;
+    font-family: "Microsoft YaHei " !important;
+    font-size: 14px !important;
+}
+
+a {
+    text-decoration: none;color: #0659b2;
+}
+a:hover {
+    text-decoration: none;color: #0000ee;
+}
+
+fieldset, img {
+    border: none;
+}
+
+ol, ul, li {
+    list-style: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal !important;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+/*禁用了文本的拖拉，尤其在谷歌下*/
+textarea {
+    resize: none;
+}
+.clear-fix:before {
+    content: ' ';
+    display: table;
+}
+.clear-fix:after {
+    content: ' ';
+    display: block;
+    clear: both;
+    height: 0;
+    visibility: hidden;
+}
+.clear-left {
+    clear: left;
+}
+.pull-left{
+    float: left;
+}
+.pull-right{
+    float: right;
+}
+.text-left {
+    text-align: left;
+}
+/*自定义样式*/
+
+body {
+    position: relative;
+    width: 100%;
+    /*min-width: 1024px;*/
+    /*background-color: rgb(243, 246, 249);*/
+    font-size: 14px;
+}
+
+.div-main {
+    width: 100%;
+}
+.fit { margin:0px;
+}
+.div-large-wrapper{
+     margin: 0 auto;
+ }
+.wrapper, .div-large-wrapper {
+    /*min-width: 400px;*/
+}
+
+.div-title {
+    line-height: 40px;
+    background-color: #054e9b;
+    border-left:solid 3px #054e9b;
+    font-size: 16px;
+    color: #fff;
+    padding: 0 20px;
+    /*min-width:1000px;*/
+    margin:0 auto;
+}
+.single-title{
+    min-width: 750px;
+}
+
+.div-large-cont-box, .div-large-box {
+    /*width: 100%;*/
+    /*1.9刘晗！新增公共样式不能乱改*/
+    width:100%;
+    margin:auto;
+}
+
+.div-menu-bar {
+    /*background-color: #fbfbfb;*/
+    /*1.9lh
+    padding: 8px 16px;*/
+    padding:0px;
+}
+
+.operate-right {
+    float: right;
+}
+
+.div-crumb {
+    /*1.9刘晗修改*/
+ /*height: 40px;
+ line-height: 40px;
+ font-size: 14px;
+ padding: 0px 12px;*/
+ height: 32px;
+ padding: 0 12px;
+}
+.div-crumb-right {
+    /*height:17px;*/
+    float: right;
+    /*1.9刘晗修改*/
+    margin: 0 14px 4px 0;
+
+}
+
+.div-crumb-right .whiteBtn {
+    color: #0087ef;
+    font-size: 14px;
+    padding: 4px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    /* background-color: #054e9b; */
+    min-width: 46px;
+    display: inline-block;
+    text-align: center;
+    padding: 4px 12px;
+}
+
+.div-crumb-right .blueBtn {
+    color: #fff;
+    font-size: 14px;
+    border: 1px solid #054e9b;
+    border-radius: 4px;
+    background-color: #054e9b;
+    min-width: 46px;
+    display: inline-block;
+    text-align: center;
+    padding:4px 12px;
+}
+.div-crumb-right .blueBtn:hover {
+    box-shadow:0px 2px 3px 0px rgba(0,188,212,0.5);
+    background:#409eff;
+    border: 1px solid #ccc;
+    padding:4px 12px;
+}
+
+.a-line {
+    border-left: 1px solid #054e9b;
+    padding-left: 10px !important;
+}
+
+.a-search {
+    /*background-color: #44a0e3;*/
+    background-color:#054e9b;
+    border: 1px solid #054e9b;
+    color: #fff;
+    line-height:30px;
+    height:32px;
+}
+.a-search:hover{
+    line-height :30px;
+    height:32px;
+    border: 1px solid #054e9b;
+    background-color: #409eff !important;
+    color: #fff !important;
+    box-shadow:0px 2px 3px 0px rgba(0,188,212,0.5)
+}
+ .a-search .mini-button-text:hover {
+    padding:0 12px;
+}
+.mini-grid-row {
+    height: 32px;
+}
+.mini-button-text {
+    padding: 4px 12px;
+}
+
+/*普通表格*/
+.multiSelect-table {
+    width: 100%;
+    /*height: 100%;*/
+    transition: .2s;
+    border: 1px solid #ebebeb;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.multiSelect-table > thead > tr, .multiSelect-table > tbody > tr {
+    border-bottom: 1px solid #ebebeb;
+}
+
+.multiSelect-table > thead > tr > th, .multiSelect-table > tbody > tr > td {
+    height: 32px;
+    line-height: 32px;
+    vertical-align: middle;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    padding: 0 10px;
+}
+
+.multiSelect-table > thead > tr > th {
+    text-align: left;
+    /*color: #909399;*/
+}
+
+.multiSelect-table input {
+    cursor: pointer;
+}
+/*form开始*/
+.general-form {
+    /*min-width: 1000px;*/
+    margin: 0 auto;
+    background-color: #fff;
+    padding-bottom: 20px;
+}
+.single-general-form{
+    nin-width:750px;
+}
+
+.div-gauge {
+    padding:1px 0;
+}
+
+.p-title {
+    line-height: 18px;
+    font-size: 16px;
+    /*1.9刘晗修改颜色*/
+    border-left: 3px solid #054e9b;
+    padding:2px 12px;
+    font-weight:bold;
+    background:#eff5fa; margin-left:0px; color:#696e7d
+
+}
+.div-form-left{
+    /*border-right:1px solid #ccc;*/
+
+}
+.div-form-left, .div-form-right {
+    float: left;
+    width:50%;
+    /*1.9刘晗修改*/
+    /*width: 46%;*/
+    /*margin-left:2%;*/
+	position: relative;
+}
+
+.div-form-left-3 {
+    float: left;
+    width: 33.3%;
+}
+.div-form-left-3 .div-write{
+    width: 68%;
+}
+.div-form-left-3 .input-write {
+    /*min-width: 200px;*/
+    width: 57%;
+}
+
+.div-form-left-3 .span-2 {
+    margin-left: 10px;
+}
+
+.div-form-left-3 .span-3 {
+    /*1.9lh   margin-left: -6px;*/
+     margin-left: 2px;
+}
+.div-details{
+    /*1.9lh修改*/
+    /*padding: 0 12px;*/
+    /*border:1px solid #ccc;*/
+}
+.div-row-1{
+    /*border-bottom: 1px solid #ccc;*/
+}
+.div-details .input-write {
+    line-height: 30px;
+    height: 30px;
+    padding: 0 4px;
+    border: 1px solid #ddd;
+    width: 100%;
+    /*min-width: 230px;*/
+    display: inline-block;
+}
+.div-form-left-3 .input-write{
+    /*min-width: 200px !important;*/
+}
+
+.div-details label {
+    display: block;
+    /*margin-top: 10px;*/
+    padding: 3px 0;
+	position:relative;
+}
+
+
+.div-details label .span-item {
+    display: inline-block;
+    /*min-width: 130px;*/
+    /*1.9刘晗修改*/
+    width:27%;
+    text-align: right;
+    margin-top: 3px;
+}
+.div-details label .span-item2 {
+    display: inline-block;
+    /*min-width: 145px;*/
+    text-align: right;
+    width:13%;
+}
+/*必填的*号的类名*/
+*[class*="validate["]:after{
+        content:'*';
+        color:#f00;
+        position: absolute;
+        top: 10px;
+        right: 0;
+        font-size: 18px;
+      }
+.must-span:after{
+    top:0;
+}
+.must-div{
+    border:1px solid #ddd;
+    padding:3px 5px;
+}
+.must-div select,.must-div input{
+    border:1px solid #ddd;
+    height:23px;
+}
+.must-div input{
+    padding:0 5px;
+}
+.tishi-text{
+    padding-left:100px;
+    color:#f00;
+}
+/*label 换成div*/
+
+.div-details .labeltodiv {
+    display: block;
+    /*margin-top: 10px;*/
+    padding: 3px 0;
+	position:relative;
+}
+
+
+.div-details .labeltodiv .span-item {
+    display: inline-block;
+    /*min-width: 130px;*/
+    /*1.9刘晗修改*/
+    width:25%;
+    text-align: right;
+    margin-top: 3px;
+}
+.div-details .labeltodiv .span-item2 {
+    display: inline-block;
+    /*min-width: 145px;*/
+    text-align: right;
+    width:13%;
+}
+
+
+
+/*label 换成div 结束*/
+
+.div-form-left-3wrap {
+    margin-left:5%;
+}
+.div-form-left-3 .div-FillIn{
+    border:1px solid #ddd;
+    background-color: #fff;
+    line-height: 28px;
+    /*min-width: 200px;*/
+    padding: 0 4px;
+}
+.div-option{
+    display: inline-block;
+    cursor: pointer;
+}
+.div-option span,.div-option input{
+    vertical-align: middle;
+}
+
+.input-r{
+    line-height: 30px;
+    height: 30px;
+    padding: 0 4px;
+    border: 1px solid #ddd;
+    /*width: 100%;*/
+
+    display: inline-block;
+}
+
+
+/*miniui输入框*/
+.div-write .mini-textbox, .div-write .mini-textbox, .div-write .mini-buttonedit {
+    width: 100% !important;
+}
+.div-write .mini-textbox, .div-write .mini-buttonedit {
+    height: 32px !important;
+}
+
+.div-write .mini-textbox-border,.div-write .mini-textbox-input,
+.div-write .mini-buttonedit-border,.div-write .mini-buttonedit-input {
+    height: 30px !important;
+    border-radius: 0;
+}
+
+.div-write .mini-textbox-input,.div-write .mini-buttonedit-input {
+    line-height: 30px !important;
+}
+/*日历图标的位置*/
+.div-write .mini-buttonedit-button,.div-write .mini-buttonedit-close{
+    /*margin-top: 5px;*/
+}
+
+.crumb-right a:hover {
+    text-decoration: none;
+}
+
+.div-colspan{
+    padding: 4px;
+    border: 1px solid #ddd;
+    width: 85%;
+    display: inline-block;
+    background-color: #fff;
+}
+.mini-grid-rows-view{
+    overflow-x: hidden !important;
+}
+
+/*字体为14号*/
+.mini-grid-cell-inner, .mini-grid-headerCell-inner {
+    font-size: 14px !important;
+}
+
+.form-table {
+    width: 100%;
+}
+
+.heading {
+    line-height: 30px;
+    padding-left: 10px;
+    font-size: 16px;
+}
+
+.general-form .div-menu-bar {
+    background-color: #f5f7f9;
+}
+.general-form .div-menu-bar-general{
+    background-color: #f5f7f9 !important;
+}
+
+/*表格修改*/
+.div-menu-bar .div-menu-left {
+    float: left;
+    margin: 4px 10px 4px 0;
+}
+
+.div-menu-bar .div-write {
+    display: inline-block;
+}
+
+/*表格最小宽度*/
+.div-table, .general-table {
+    min-width: 400px;
+}
+
+.div-Canwrite {
+    display: inline-block;
+    /*width: 68%;*/
+    position: relative;
+    z-index: 999;
+}
+.img-arrow-down{
+    position: absolute;
+    top: 8px;
+    right: -40px;
+    cursor: pointer;
+}
+
+.div-Canwrite .ul-options{
+    position: absolute;
+    top:32px;
+    left:0;
+    border: 1px solid #ddd;
+    min-width: 230px;
+    background-color: #fff;
+    display: none;
+}
+.div-Canwrite .ul-options li{
+    line-height: 32px;
+    padding: 0 4px;
+    cursor: pointer;
+}
+.div-Canwrite .ul-options li:hover{
+    background-color: #255293;
+    color: #fff;
+}
+.csrq{
+    width:13.5%!important;
+}
+.div-birthday {
+    /*1.9刘晗  width: 300px !important;*/
+    width: 85% !important;
+}
+
+.xqms-span {
+    vertical-align: top;
+    /*1.9刘晗新增*/
+    width:13.5%!important;
+}
+
+.div-tablex .menu-bar {
+    padding: 5px 20px;
+}
+
+.div-write{
+    display: inline-block;
+    /*width: 300px;*/
+    /*1.9刘晗修改*/
+    width:70%;
+}
+.div-option label{
+    display: inline-block;
+    cursor: pointer;
+    margin-right: 10px;
+	padding-left: 5px;
+}
+.span-item.span-item-option{
+    display: inline-block;
+    min-width: 120px;
+    /*1.9lh*/
+    width:26%;
+    text-align: right;
+    vertical-align: middle;
+}
+
+/*miniui表格1*/
+.div-miniui-table .div-crumb{
+    padding: 4px 12px !important;
+}
+.general-miniui-table{
+    padding: 0 12px;
+}
+.general-miniui-table .div-menu-bar{
+    /*padding: 0 12px;*/
+}
+.general-miniui-table .span-item{
+    display: inline-block;
+    /*min-width: 70px;*/
+    text-align: right;
+}
+.div-Canwrite-date{
+    width: auto !important;
+}
+.div-Canwrite .mini-buttonedit{
+    width: 230px;
+    height: 30px;
+}
+.div-Canwrite .mini-buttonedit-border{
+    height: 28px;
+}
+.div-Canwrite .mini-buttonedit-button, .mini-buttonedit-close{
+    height: 24px;
+}
+.div-Canwrite .mini-buttonedit-input{
+    height: 26px;
+    line-height: 26px;
+}
+.mini-shadow{
+    display: none;
+}
+.mini-popup,.mini-window, .mini-menu-open{
+    box-shadow: none;
+}
+
+.div-crumb {
+    /*1.9刘晗改*/
+    /*padding-top: 10px;*/
+    /*height:13px;*/
+
+}
+#fileTableDiv table td {padding:4px 8px; border-bottom:solid 1px #f1f1f1}
+.fjiancailiao { border-left:solid 3px #0273cd; padding-left:12px; font-weight:bold
+}
+
+
+/*分离表格样式*/
+.div-table-wrap{
+    /*width:1000px;*/
+    margin:0 auto;
+    background: #f1f1f1;
+    padding-bottom: 20px;
+}
+.div-table-title{
+    padding: 5px 0;
+}
+
+.table-title {
+    line-height: 18px;
+    font-size: 16px;
+    border-left: 3px solid #054e9b;
+    padding-left:16px;
+    font-weight:bold;
+}
+.div-table-btn{
+    float:right;
+    padding:4px 16px 4px 0;
+}
+
+
+
+/*
+    消息提示弹窗及确认弹窗样式
+    2019.1.17罗凯新增
+*/
+.custom-tips{
+    background-color:#ffffff;
+    position: fixed;
+    z-index: 9999;
+    box-shadow:0 0 5px #999999;
+    border-radius:4px;
+}
+.custom-tips .topTitle{
+    background-color:#0a5897;
+    padding-left: 15px;
+    color: #ffffff !important;
+    border-radius:4px 4px 0 0;
+    height: 25px;
+    line-height: 25px;
+}
+.custom-tips .content{
+    width:100%;
+    padding: 10px;
+}
+.custom-tips .content table{
+    overflow:hidden;
+    table-layout:fixed;
+    margin:auto auto;
+    height:100%;
+}
+/*.custom-tips .content table .icon{
+    width: 24px;
+    min-height: 24px;
+}
+.custom-tips .content table .icon img{
+    width: 24px;
+    height: 24px;
+    vertical-align:middle;
+}*/
+.custom-tips .content table .text{
+    padding-left: 10px;
+    word-wrap: break-word;
+    word-break: break-all;
+    overflow: hidden;
+}
+.custom-tips .content table .text div{
+    line-height:24px;
+    word-wrap: break-word;
+    word-break: break-all;
+    overflow-y:auto;
+    color:#000000 !important;
+}
+/*消息提示弹窗样式*/
+.msgBox.custom-tips{
+    max-width: 450px;
+    min-width: 200px;
+    max-height:200px;
+    min-height: 44px;
+}
+/*确认弹窗样式*/
+.confirm.custom-tips{
+    max-width: 320px;
+    min-width: 280px;
+    max-height:260px;
+    min-height: 120px;
+}
+.confirm.custom-tips .bottom{
+    height: 40px;
+    text-align: center;
+}
+.confirm.custom-tips .bottom .btnSure{
+    width: 50px;
+    height: 30px;
+    line-height: 30px;
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 4px;
+    background-Color: #054e9b;
+    color: #ffffff !important;
+}
+.confirm.custom-tips .bottom .btnCancel{
+    width: 50px;
+    height: 30px;
+    line-height: 30px;
+    border: 1px solid #2eb0ee;
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 4px;
+    background-Color: #ffffff;
+    color: #00a0ec !important;
+    margin-left:30px;
+}
+.custom-confirm-cover{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 999;
+    background: #ffffff;
+    -moz-opacity: 0; /*Firefox3.5+*/
+    -webkit-opacity: 0; /*Safari3.2+*/
+    -o-opacity: 0; /*Opera9.6*/
+    -ms-opacity: 0; /*IE8*/
+    opacity: 0;
+    filter:alpha(opacity=0);
+}
+
+
+/*new-table1标题*/
+.table-biaoti1 {
+    width: 100%;
+    color: #000;
+    border-left: solid 3px #054e9b;
+    padding-left: 10px;
+    margin: 6px 0;
+}

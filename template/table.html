@@ -1,0 +1,196 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>new-表格1</title>
+    <link rel="stylesheet" type="text/css" href="/other/miniui/themes/icons.css"/>
+    <link rel="stylesheet" type="text/css" href="/other/miniui/themes/default/miniui.css"/>
+    <link rel="stylesheet" type="text/css" href="/other/miniui/themes/bootstrap/skin.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/gf.css">
+    <script src="/other/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="/other/miniui/miniui.js" type="text/javascript"></script>
+</head>
+<body>
+<div class="mini-fit">
+    <div class="div-main" id="div-main">
+        <div class="div-large-wrapper">
+            <div class="general-table general-miniui-table">
+                <div class="div-miniui-table">
+                    <!--标题栏-->
+                    <div class="table-biaoti1">白色标题</div>
+                    <!--菜单操作按钮-->
+                    <div class="div-menu-bar">
+                        <div class="div-row-1 clear-fix">
+                            <div class="div-menu-left">
+                                <div class="labeltodiv">
+                                    <span class="span-item">姓名姓名：</span>
+                                    <div class="div-Canwrite"><input class="input-r" type="text" value="吴爱国"></div>
+                                </div>
+                            </div>
+                            <div class="div-menu-left">
+                                <div class="labeltodiv">
+                                    <span class="span-item">性别：</span>
+                                    <div class="div-Canwrite">
+                                        <input id="gender" name="gender" class="mini-combobox"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="div-menu-left">
+                                <div class="labeltodiv">
+                                    <span class="span-item">日期：</span>
+                                    <div class="div-Canwrite div-Canwrite-date">
+                                        <input id="birthday1" name="birthday" class="mini-datepicker"/>
+                                        <span>至</span>
+                                        <input id="birthday2" name="birthday" class="mini-datepicker"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="div-menu-left">
+                                <div class="labeltodiv">
+                                    <span class="span-item">手机号：</span>
+                                    <div class="div-Canwrite"><input class="input-r" type="text" value="113131355666">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="div-menu-left"><a class="mini-button a-search" onclick="search()">查询</a></div>
+                            <div class="operate-right">
+                                <!-- 功能按钮 -->
+                                <div class="div-crumb clear-fix">
+                                    <div class="div-crumb-right">
+                                        <a class="whiteBtn" href="javascript:void(0);">新增</a>
+                                        <a class="blueBtn" href="javascript:void(0);">修改</a>
+                                        <a class="whiteBtn" href="javascript:void(0);">删除</a>
+                                        <a class="whiteBtn" href="javascript:void(0);">保存</a>
+                                        <a class="a-line whiteBtn" href="javascript:void(0);">重置</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <!--表格-->
+                        <div class="">
+                            <div id="datagrid1" class="mini-datagrid" style="width:100% !important;height:100%;"
+                                 url="data/data.txt" idField="id" pageSize="10" multiSelect="true">
+                                <div property="columns">
+                                    <div type="checkcolumn"></div>
+                                    <div type="indexcolumn" width="57" headerAlign="center">序号</div>
+                                    <div field="ComplaintReportingDate" width="110" allowSort="true"
+                                         headerAlign="center"
+                                         dateFormat="yyyy-MM-dd" align="center">信访日期
+                                    </div>
+                                    <div field="TheName" width="70" headerAlign="center" allowSort="true"
+                                         align="center">姓名
+                                    </div>
+                                    <div field="IdNumber" width="130" headerAlign="center" allowSort="true"
+                                         align="center">证件号
+
+                                    </div>
+                                    <div field="ContentType" width="130" headerAlign="center" allowSort="true"
+                                         align="center">
+                                        内容分类
+
+                                    </div>
+                                    <div field="ProblemDependency" width="130" headerAlign="center" allowSort="true"
+                                         align="center">问题属地
+
+                                    </div>
+                                    <div field="LettersAndForm" width="90" headerAlign="center" allowSort="true"
+                                         align="center">
+                                        信访形式
+
+                                    </div>
+                                    <div field="Status" width="130" headerAlign="center" allowSort="true"
+                                         align="center">状态
+
+                                    </div>
+                                    <div field="Status" width="130" headerAlign="center" allowSort="true"
+                                         align="center">状态
+
+                                    </div>
+                                    <div field="Status" width="130" headerAlign="center" allowSort="true"
+                                         align="center">状态
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        var Genders = [{id: 1, text: '男'}, {id: 2, text: '女'}];
+
+        function onGenderRenderer(e) {
+            for (var i = 0, l = Genders.length; i < l; i++) {
+                var g = Genders[i];
+                if (g.id == e.value) return g.text;
+            }
+            return "";
+        }
+
+        function stopPropagation(e) {
+            e = e || window.event;
+            if (e.stopPropagation) { //W3C
+                e.stopPropagation();
+            } else {
+                e.cancelBubble = true; //IE
+            }
+        }
+
+        $(window).on("resize", function () {
+            link();
+        });
+        mini.parse();
+        var grid = mini.get("datagrid1");
+        grid.load();
+        var windowH = document.documentElement.clientHeight || document.body.clientHeight;
+        $('#datagrid1').height((windowH - 590));
+        link();
+        function link() {
+            mini.layout();
+        }
+
+        //普通表格的全选
+        $(".all-checked").click(function () {
+            if (this.checked) {
+                $('.tbody-checked input[type=checkbox]').attr('checked', true);
+            } else {
+                $('.tbody-checked input[type=checkbox]').attr('checked', false);
+            }
+        });
+        $(".tbody-checked input").on('change', function () {
+            $(this).each(function () {
+                if (!$(this).attr('checked')) {
+                    $(".all-checked").prop('checked', false);
+                }
+            });
+            if ($('.tbody-checked input[type=checkbox]:checked').length == $('.tbody-checked input').length) {
+                $(".all-checked").prop('checked', true);
+            }
+        });
+
+        //下拉框选择
+        /*   $(document).click(function () {
+         stopPropagation();
+         $('.ul-options').hide();
+         });*/
+        /*   $('.img-arrow-down').on('click', function (e) {
+         stopPropagation();
+         $(this).siblings('.ul-options').slideToggle("500");
+         });
+         $('.div-Canwrite .ul-options li').on('click', function (e) {
+         stopPropagation();
+         var li_text = $(this).text();
+         console.log(li_text);
+         $(this).parents('.ul-options').siblings('.input-r').val(li_text);
+         $('.ul-options').slideUp();
+         });*/
+    });
+</script>
+</body>
+</html>
