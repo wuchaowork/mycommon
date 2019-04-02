@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="/other/jquery-1.9.1.min.js"></script>
+    <script src="/other/boot.js"></script>
+    <script src="/js/mycommon.js"></script>
+    <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+    <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>
+    <script>
+        var data;
+        var abc = 1;
+        jQuery(function () {
+          
+           var aaaa= [1, 0];
+
+           aaaa.splice(1,1);
+            
+
+           data = {
+               a: 1,
+               b: "t",
+               c: { d: 1, f: 2,z:2 },
+               g: [{ h: 3, i: 4 }, { h: 5, i: 6 }],
+               n: [1,2],
+               k: 3,
+               m: 1,
+               q:"00999",
+               x:4,
+               ff:null,
+               fff:null
+             };
+
+        });
+        function myfunction() {
+            alert(JSON.stringify(_mycommon.formManager.getData()));
+        }
+
+        function getData2() {
+            data = _mycommon.formManager.getData();
+
+        }
+
+        function setData2() {
+            data.n = [0];
+            data.sadjashda = 1;
+            data.sadj23 = [{a:1,b:"232da"}];
+            _mycommon.formManager.setData(data);
+        }
+
+        function dialog() {
+            var miniDialog = _mycommon.dialogManager.open({
+                data: data,
+                url: "parent.html?b=1",
+                allowResize:true,
+               showMaxButton:true
+           });
+            miniDialog.max();
+        }
+        _mycommon.eventManager.addEvent('aa', function () {
+            alert(1);
+        });
+        function ischange() {
+           alert( _mycommon.formManager.isChange());
+        }
+        function equala() {
+            alert(1=="1");
+        }
+        function testmergeurl() {
+            var url = "a?asda=as&c=1";
+            var json = { b: 1, c: "asdasd", d: [{asdj:1,dd:"ff"}]};
+            alert(_mycommon.tools.url.merge(url, json));
+            var a = _mycommon.tools.url.merge(url, json);
+            var f = _mycommon.getUrlParams(a);
+        }
+    </script>
+</head>
+<body>
+    <button id="addd" class="abc ttt" onclick="_mycommon.formManager.setData(data)">设置数据</button>
+    <button onclick="myfunction()">获取数据</button>
+    <button onclick="getData2()">先获取数据</button>
+    <button onclick="setData2()">通过js改变后设置数据</button>
+    <button onclick="dialog()">弹窗</button>
+    <button onclick="ischange()">是否变更</button>
+    <button onclick="equala()">双等号</button>
+    <button onclick="testmergeurl()">测试url拼接</button>
+    <button onclick="testmergeurl()">获取所在方法及上级对象的名称</button>
+   
+    
+    <label  class="bd_q"></label>
+            <p>sdsds: <div id="abcd" class="bd_b">asdasd</div></p>
+    <p>x:<input id="ac" type="checkbox" name="bd_x" class="bd_x" bdval="4" />female</p>
+            <p>k:<input type="radio" name="bd_k" class="bd_k"  bdval="2" />male <input type="radio" name="bd_k" class="bd_k"  bdval="3"/>female</p>
+    <p>n:<input type="checkbox" class="bd_n" bdval="1" />male <input type="checkbox" class="bd_n" bdval="3"/>female</p>
+            <p id="bcd" class="bd_c_f"></p>
+    label<label class="bd_fff"></label>
+    原生输入框<input id="bd_ff" class="bd_ff mini-textbox" type="text" name="sdsds" value="" required:true/>
+            <input id="tb" class="mini-textbox bd_c_d"  emptyText="请输入商品编号" vtype="email"  />
+            
+            <input id="jaaaa"  class="mini-combobox bd_c_z" style="width:150px;" textField="text" valueField="id"
+                   data="[{'id':1,'text':'一'},{'id':2,'text':'二'}]"  showNullItem="true" allowInput="true" />
+    <div id="flowentityTable"  class="mini-datagrid bd_g" style="width:700px;height:250px;" >
+        <div property="columns">
+            <div type="indexcolumn"></div>
+            <div field="h" headerAlign="center" allowSort="true" renderer="formartclass">h</div>
+            <div field="i" headerAlign="center" allowSort="true">i</div>
+        </div>
+    </div>
+    <iframe style="width:300px;height:200px;" src="test.html"></iframe>
+</body>
+</html>
