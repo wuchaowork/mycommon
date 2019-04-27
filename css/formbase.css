@@ -1,0 +1,354 @@
+/* common style */
+
+* {
+    box-sizing: border-box
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    font-size: 14px;
+}
+
+.main {
+    height: 100%;
+    width: 100%;
+    display: block;
+    position: relative;
+}
+
+table.panel {
+    height: 100%;
+    display: block;
+}
+
+/* tool bar */
+
+.bar {
+    overflow: hidden;
+    border-bottom: 1px solid #eee;
+}
+
+.bar>h1 {
+    height: 40px;
+    line-height: 40px;
+    text-align: left;
+    padding: 0 24px;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: bold;
+    background: #0095DB;
+}
+
+/* fiex-bar */
+
+.main.fiex-bar>.bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.main.fiex-bar {
+    padding-top: 40px
+}
+
+.main.fiex-bar.row-1 {
+    padding-top: 40px
+}
+
+.main.fiex-bar.row-1_5 {
+    padding-top: 60px
+}
+
+.main.fiex-bar.row-2 {
+    padding-top: 80px
+}
+
+.main.fiex-bar.row-2_5 {
+    padding-top: 100px
+}
+
+.main.fiex-bar>.container {
+    height: 100%;
+    overflow: auto;
+    position: relative;
+}
+
+/* form */
+
+.container>form {
+    width: 900px;
+    margin: 0 auto;
+    padding: 24px 0 24px 0;
+}
+form>fieldset{
+    margin: 36px 0;
+    position: relative;
+    width: 100%;
+    display: block;
+    overflow: hidden;
+    min-width: auto;
+}
+
+form>fieldset>legend {
+    line-height: 24px;
+    padding: 6px;
+    margin: 24px 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #666;
+    padding-left: 16px;
+    position: relative;
+    background-color: rgb(239, 245, 250);
+    width: 100%;
+}
+
+form>fieldset>legend:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 6px;
+    background-color: #0095DB;
+    content: '';
+}
+
+/* btn */
+
+.btn-group {
+    overflow: hidden;
+}
+
+.btn-group.right {
+    overflow: hidden;
+    float: right;
+}
+
+.btn-group.left {
+    overflow: hidden;
+    float: left;
+}
+
+/* a.btn-float{
+    display: block;
+    float: left;
+    padding: 0 6px;
+    text-align: center;
+    line-height: 26px;
+    background-color: #0095DB;
+} */
+
+.btn-group>button,
+a.btn-float {
+    display: block;
+    float: left;
+    height: 28px;
+    text-align: center;
+    line-height: 26px;
+    border: 1px solid #0095DB;
+    background: #0095DB;
+    padding: 0 12px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color, border, box-shadow 0.3s ease;
+    outline: none;
+    border-radius: 2px;
+}
+.btn-group>button{    
+    margin: 6px 3px;
+    border-radius: 3px;
+    box-shadow: 0 1px 3px #ccc;
+}
+.btn-group>button:hover,
+
+a.btn-float:hover {
+    background-color: #009EE8;
+    border: 1px solid #009EE8;
+    
+}
+.btn-group>button:hover{
+    box-shadow: 0 3px 8px #ccc;
+}
+
+.btn-group>button:active,
+a.btn-float:active {
+    background-color: #0182BE;
+    border: 1px solid #0182BE;
+}
+.btn-group>button:active{
+    box-shadow: 0 1px 2px #ccc;
+}
+
+.btn-group>button.disabled, 
+.btn-group>button[disabled="disabled"],
+a.btn-float.disable {
+    border: 1px solid #ccc!important;
+    background: #ccc!important;
+    cursor: not-allowed;
+}
+
+/* grid system */
+
+.row {
+    line-height: 28px;
+    padding: 4px 6px;
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+}
+
+.row>.col-1, 
+.row>.col-2, 
+.row>.col-3, 
+.row>.col-4, 
+.row>.col-5, 
+.row>.col-6, 
+.row>.col-7, 
+.row>.col-8, 
+.row>.col-9, 
+.row>.col-10, 
+.row>.col-11, 
+.row>.col-12 {
+    line-height: 28px;
+    padding: 0 6px;
+    float: left;
+    position: relative;
+}
+.row>.row.col-1, 
+.row>.row.col-2, 
+.row>.row.col-3, 
+.row>.row.col-4, 
+.row>.row.col-5, 
+.row>.row.col-6, 
+.row>.row.col-7, 
+.row>.row.col-8, 
+.row>.row.col-9, 
+.row>.row.col-10, 
+.row>.row.col-11, 
+.row>.row.col-12 {
+    padding: 0;
+}
+
+
+
+
+.row>.col-1 {width: 8.3333%}
+.row>.col-2 {width: 16.6666%}
+.row>.col-3 {width: 25%}
+.row>.col-4 {width: 33.3333%}
+.row>.col-5 {width: 41.6666%}
+.row>.col-6 {width: 50%}
+.row>.col-7 {width: 8.3333%}
+.row>.col-8 {width: 66.6666%}
+.row>.col-9 {width: 75%}
+.row>.col-10 { width: 83.3333%}
+.row>.col-11 {width: 91.6666%}
+.row>.col-12 {width: 100%}
+
+.row>label {
+    display: block;
+    text-align: right;
+}
+
+label {
+    white-space: nowrap;
+    word-wrap: normal;
+    word-break: keep-all;
+    padding: 0 6px;
+}
+
+.row>div>input {
+    height: 28px;
+    width: 100%;
+    display: block;
+    line-height: 28px;
+    padding: 0 0 0 6px;
+    border-radius: 2px;
+    border: 1px solid #ccc;
+    float: left;
+    outline: none;
+}
+.row>div>input:focus {
+    border-color: #808891;
+}
+.row>*{
+    overflow: hidden;
+}
+
+.row .offset-1 {
+    margin-left: 8.3333%
+}
+
+.row .offset-2 {
+    margin-left: 16.6666%
+}
+
+.row .offset-3 {
+    margin-left: 25%
+}
+
+.row .offset-4 {
+    margin-left: 33.3333%
+}
+
+.row .offset-5 {
+    margin-left: 41.6666%
+}
+
+.row .offset-6 {
+    margin-left: 50%
+}
+
+.row .offset-7 {
+    margin-left: 8.3333%
+}
+
+.row .offset-8 {
+    margin-left: 66.6666%
+}
+
+.row .offset-9 {
+    margin-left: 75%
+}
+
+.row .offset-10 {
+    margin-left: 83.3333%
+}
+
+.row .offset-11 {
+    margin-left: 91.6666%
+}
+
+.row .offset-12 {
+    margin-left: 100%
+}
+
+/* miniUI */
+.mini-datepicker{
+    width: 100%;
+    height: 28px;
+    line-height: 28px;
+}
+
+.mini-buttonedit-border{
+    height: 26px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+}
+.mini-buttonedit-border >input{
+    line-height: 26px;
+    height: 26px;
+    font-size: 14px;
+}
+
+.mini-buttonedit-button, .mini-buttonedit-close{
+    height: 22px;
+}
+.mini-buttonedit{
+    display: block;
+    height: 28px;
+    width: 100%;
+    float: left;
+}
