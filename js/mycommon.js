@@ -434,7 +434,7 @@
 //通用类库
 //依赖 jquery
 //依赖 miniui
-(function(window,$){
+(function (window, $) {
     var _mycommon = {
         guidempty: "00000000-0000-0000-0000-000000000000",
         //源window，主要用于多个页面之间的通信
@@ -460,7 +460,7 @@
                         }
                     }
                 }
-    
+
                 if (!id) {
                     id = 'id' + Math.random();
                 }
@@ -485,11 +485,11 @@
                 if (exist == false) {
                     root.eventManager.registerEvents.push({ 'name': name, 'fn': fn });
                 }
-    
+
             },
             triggerEvent: function (name, data) {
                 var root = window.top._mycommon;
-    
+
                 var backdata;
                 if (root && root.eventManager.registerEvents.length > 0) {
                     var arr = root.eventManager.registerEvents;
@@ -508,15 +508,15 @@
                         }
                     }
                 }
-    
+
                 return backdata;
-    
+
             }
         },
         //http请求管理
         ajax: function (options) {
             var self = this;
-    
+
             var defaultOptions = {
                 url: "",
                 data: '',
@@ -548,11 +548,11 @@
                 options.data = "";
             }
             $.extend(defaultOptions, options);
-    
+
             if (defaultOptions.type == 'get') {
                 var protocol = {};
                 //to do 判断是否为无效数据类型
-    
+
                 if (self.tools.type.IsString(defaultOptions.data) || self.tools.type.IsBoolean(defaultOptions.data) || self.tools.type.IsNumber(defaultOptions.data)) {
                     protocol = defaultOptions.data;
                 }
@@ -562,13 +562,13 @@
                 else {
                     for (var key in defaultOptions.data) {
                         if (!defaultOptions.data.hasOwnProperty(key)) continue;
-    
+
                         if (self.tools.type.IsUndefined(defaultOptions.data[key]) || self.tools.type.IsFunction(defaultOptions.data[key])) {
                             alert(key + ":" + defaultOptions.data[key]);
                             //to do log
                             return;
                         }
-    
+
                         //服务器端默认只会解析简单结构的json
                         if (self.tools.type.IsObject(defaultOptions.data[key]) || self.tools.type.IsArray(defaultOptions.data[key])) {
                             protocol[key] = JSON.stringify(defaultOptions.data[key]);
@@ -578,11 +578,11 @@
                     }
                 }
                 defaultOptions.protocol = protocol;
-    
+
             } else if (defaultOptions.type == 'post') {
                 var protocol = {};
                 //to do 判断是否为无效数据类型
-    
+
                 if (self.tools.type.IsString(defaultOptions.data) || self.tools.type.IsBoolean(defaultOptions.data) || self.tools.type.IsNumber(defaultOptions.data)) {
                     protocol = defaultOptions.data;
                 }
@@ -592,13 +592,13 @@
                 else {
                     for (var key in defaultOptions.data) {
                         if (!defaultOptions.data.hasOwnProperty(key)) continue;
-    
+
                         //if (self.tools.type.IsUndefined(defaultOptions.data[key]) || self.tools.type.IsFunction(defaultOptions.data[key])) {
                         //    alert(key + ":" + defaultOptions.data[key]);
                         //    //to do log
                         //    return;
                         //}
-    
+
                         //服务器端默认只会解析简单结构的json
                         if (self.tools.type.IsObject(defaultOptions.data[key]) || self.tools.type.IsArray(defaultOptions.data[key])) {
                             protocol[key] = JSON.stringify(defaultOptions.data[key]);
@@ -609,9 +609,9 @@
                 }
                 defaultOptions.protocol = protocol;
             }
-    
+
             return $.ajax({
-    
+
                 type: defaultOptions.type,
                 url: defaultOptions.url,
                 data: defaultOptions.protocol,
@@ -635,7 +635,7 @@
                 },
                 success: function (data, textStatus, jqxhr) {
                     //defaultConfig.validate(data.code);
-    
+
                     //if (data.code == 0 ) {
                     //if (data.success == 0) {
                     if (defaultOptions.success) defaultOptions.success(data, textStatus);
@@ -651,23 +651,23 @@
                 complete: function (xhr, textStatus) {
                     //dispose xhr
                     xhr = null;
-    
+
                     //close waload
                     //close waload
                     //if (defaultOptions.loadingicon && defaultOptions.async) {
                     //    _parent.hideLoading();
                     //}
-    
+
                     if (defaultOptions.complete) defaultOptions.complete(textStatus);
                 },
                 error: function (xhr, textStatus, errorThrown) {
-    
-    
+
+
                     //close waload
                     //if (defaultOptions.loadingicon && defaultOptions.async) {
                     //    _parent.hideLoading();
                     //}
-    
+
                     if (defaultOptions.error) {
                         defaultOptions.error(xhr, textStatus, errorThrown)
                     }
@@ -686,7 +686,7 @@
                     xhr = null;
                 }
             });
-    
+
         },
         //表单管理
         formManager: {
@@ -703,7 +703,7 @@
                 var self = this;
                 var root = _mycommon;
                 self.setCache(o, name);
-    
+
                 var t = $('[' + self.filter + '*="' + self.filterValue + '"]');
                 var cache = {};//对重复name处理结果进行缓存
                 $.each(t, function () {
@@ -716,7 +716,7 @@
                             name = arr[v];
                         }
                     }
-    
+
                     //获取相同name的元素数量
                     var sameNameElements = [];
                     for (var n = 0; n < t.length; n++) {
@@ -728,27 +728,27 @@
                     if (!cache[name] && sameNameElements.length > 1) {
                         cache[name] = 1;
                     }
-    
+
                     var value = self.multLevelData(o, name);
-    
+
                     //赋值
                     //默认只有radio,checkbox可以name重复
                     if (cache[name] && cache[name] == 1) {
                         var innercache;
-    
+
                         for (var i = 0; i < sameNameElements.length; i++) {
                             var item = sameNameElements[i];
-    
+
                             if (item.attr("type") == "radio" || item.attr("type") == "checkbox") {
                                 var typename = item.attr('type');
                                 if (innercache && innercache != typename) {
                                     throw new Error('同名name只能绑定同类型的input,如：checkbox，radio，绑定名称：' + name);
                                 }
                                 innercache = typename;
-    
+
                             } else {
                                 throw new Error('同名name只能绑定同类型的input,如：checkbox，radio，绑定名称：' + name);
-    
+
                             }
                             if (root.tools.type.IsArray(value)) {
                                 for (var f = 0; f < value.length; f++) {
@@ -768,7 +768,7 @@
                                 }
                             }
                         }
-    
+
                         cache[name] += 1;
                     } else {
                         //miniui系列
@@ -802,18 +802,18 @@
                             if (root.tools.type.IsNull(value) == false) {
                                 obj.text(value);
                             }
-    
+
                         }
                     }
                 });
-    
+
                 //缓存处理
                 self.setCurrentCache(self.getData(name), name);
             },
             //缓存处理
             setCache: function (o, name) {
                 var self = this;
-    
+
                 //缓存处理
                 if (!name) name = self.defaultName;
                 var item = _mycommon.tools.array.has(self.cache, function (item) {
@@ -828,7 +828,7 @@
             //设置快照
             setCurrentCache: function (o, name) {
                 var self = this;
-    
+
                 //缓存处理
                 if (!name) name = self.defaultName;
                 var item = _mycommon.tools.array.has(self.cache, function (item) {
@@ -843,7 +843,7 @@
             //获取快照
             getCurrentCache: function (name) {
                 var self = this;
-    
+
                 //缓存处理
                 if (!name) name = self.defaultName;
                 var item = _mycommon.tools.array.has(self.cache, function (item) {
@@ -855,7 +855,7 @@
             getCache: function (o, name) {
                 var resultdata;
                 var self = this;
-    
+
                 //缓存处理
                 if (!name) name = self.defaultName;
                 var item = _mycommon.tools.array.has(self.cache, function (item) {
@@ -898,7 +898,7 @@
             },
             multLevelName: function (o, str, value) {
                 var arr = str.split('_');
-    
+
                 //多级数据结构处理
                 if (arr.length > 2) {
                     if (arr.length == 3) {
@@ -918,27 +918,27 @@
                 } else {
                     o[arr[1]] = value;
                 }
-    
+
             },
             getData: function (name) {
                 var self = this;
                 var root = _mycommon;
                 var o = {};
-    
+
                 var t = $('[' + self.filter + '*=' + self.filterValue + ']');
                 $.each(t, function () {
                     var obj = $(this);
                     var arrnamestr = obj.attr(self.filter);
                     var cache = {};//对重复name处理结果进行缓存
                     var name;
-    
+
                     var arr = arrnamestr.split(" ");
                     for (var v = 0; v < arr.length; v++) {
                         if (arr[v].indexOf(self.filterValue) >= 0) {
                             name = arr[v];
                         }
                     }
-    
+
                     //获取相同name的元素数量
                     var sameNameElements = [];
                     for (var n = 0; n < t.length; n++) {
@@ -950,25 +950,25 @@
                     if (!cache[name] && sameNameElements.length > 1) {
                         cache[name] = 1;
                     }
-    
+
                     //
                     if (cache[name] && cache[name] == 1) {
                         var innercache;
                         var temp = [];
                         for (var i = 0; i < sameNameElements.length; i++) {
                             var item = sameNameElements[i];
-    
+
                             if (item.attr("type") == "radio" || item.attr("type") == "checkbox") {
                                 var typename = item.attr('type');
                                 if (innercache && innercache != typename) {
                                     throw new Error('同名name只能绑定同类型的input,如：checkbox，radio');
                                 }
                                 innercache = typename;
-    
+
                             } else {
                                 throw new Error('同名name只能绑定同类型的input,如：checkbox，radio');
                             }
-    
+
                             if (item.attr("type") == "radio") {
                                 if (item[0].checked === true) {
                                     var v = self.getHtmlTagValue(item);
@@ -982,11 +982,11 @@
                                 }
                             }
                         }
-    
+
                         if (innercache == "checkbox") {
                             self.multLevelName(o, name, temp);
                         }
-    
+
                         cache[name] += 1;
                     } else {
                         //miniui系列
@@ -1049,16 +1049,16 @@
                         v = dom.attr(self.customAttr);
                     } else {
                         throw new Error("原生radio,checkbox必须使用" + self.customAttr + "绑定数据");
-    
+
                     }
                 } else {
                     v = dom.val();
                 }
-    
+
                 return v;
             }
-    
-    
+
+
         },
         //弹窗管理
         dialogManager: {
@@ -1075,9 +1075,9 @@
                 if (options.data && _mycommon.tools.type.IsObject(options.data) == false) {
                     throw new Error('data数据只能支持object');
                 }
-    
+
                 self.win = this.findParentWinWithMiniui(window);
-    
+
                 var defaultOptions = {
                     title: '',
                     url: '',
@@ -1087,12 +1087,12 @@
                     data: "",
                     showMaxButton: true
                 };
-    
+
                 //url params
                 if (options.data) {
-    
+
                     options.url = root.tools.url.merge(options.url, options.data);
-    
+
                     //提供id，方便区分页面(虽然miniui也设置了。。)
                     options.url += '&' + _mycommon.pageManager.pageIdField + '=' + pageid;
                 } else {
@@ -1100,19 +1100,19 @@
                     if (options.url.indexOf('?') >= 0) {
                         search = '&';
                     }
-    
+
                     //提供id，方便区分页面(虽然miniui也设置了。。)
                     options.url += search + _mycommon.pageManager.pageIdField + '=' + pageid;
                 }
-    
+
                 $.extend(defaultOptions, options);
-    
+
                 var miniwin = self.win.mini.open(defaultOptions);
-    
+
                 self.win._mycommon.dialogManager.setMiniWin({ id: pageid, miniwin: miniwin });
-    
+
                 self.win._mycommon.dialogManager.setSourceWin(window);
-    
+
                 return miniwin;
             },
             getData: function () {
@@ -1128,7 +1128,7 @@
                         break;
                     }
                 }
-    
+
             },
             setMiniWin: function (miniWin) {
                 this.miniWin.push(miniWin);
@@ -1136,7 +1136,7 @@
             setSourceWin: function (sourceWin) {
                 _mycommon.sourceWin = sourceWin;
             },
-    
+
             getSourceWin: function () {
                 //有坑
                 //如果是多个弹窗交互使用时，这个方法返回的永远是最后弹窗的源win
@@ -1145,8 +1145,8 @@
                 var topwindow = this.findParentWinWithMiniui(window);
                 return topwindow._mycommon.sourceWin;
             }
-    
-    
+
+
         },
         //提示框
         tips: {
@@ -1223,7 +1223,7 @@
                         }
                         box.find(".content .icon img").removeAttr("src").attr("src", iconUrl);
                         $("body").append(box);//向页面添加提示框
-    
+
                         /*判断是否有标题，从而加载弹窗主体高度*/
                         var topTitle = box.find(".topTitle");
                         var boxContent = box.find(".content");
@@ -1302,7 +1302,7 @@
                             boxContent.outerHeight(box.outerHeight() - topTitle.outerHeight() - boxBottom.outerHeight());
                         }
                         boxContent.find(".text div").css("max-height", boxContent.height());
-    
+
                         /** 对确认提示框进行定位 */
                         var clientWidth = document.documentElement.clientWidth; //屏幕宽
                         var clientHeight = document.documentElement.clientHeight; //屏幕高 
@@ -1460,37 +1460,37 @@
             }
             */
             download: function (options) {
-    
+
                 var root = _mycommon;
                 var form;
-    
+
                 var defaultOptions = {
                     url: "",
                     data: '',
                     type: "get"
                 };
                 $.extend(defaultOptions, options);
-    
+
                 var rawJson = root.tools.jsonToRaw(defaultOptions.data);
-    
+
                 if ($('#_fileform').length > 0) {
                     form = $('#_fileform');
                     form.attr('method', defaultOptions.type);
                     form.attr('action', defaultOptions.url);
-    
+
                     form.empty();
                     for (var key in rawJson) {
                         if (!rawJson.hasOwnProperty(key)) continue;
-    
+
                         var input = $("<input type='hidden' name='" + key + "' value='" + rawJson[key] + "'>");
                         form.append(input);
                     }
                 } else {
                     form = $('<form id="_fileform" method="' + defaultOptions.type + '" target="hidden_fileframe" action="' + defaultOptions.url + '" ></form>');
-    
+
                     for (var key in rawJson) {
                         if (!rawJson.hasOwnProperty(key)) continue;
-    
+
                         var input = $("<input type='hidden' name='" + key + "' value='" + rawJson[key] + "'>");
                         form.append(input);
                     }
@@ -1500,8 +1500,8 @@
                 }
                 form.submit();
             }
-    
-    
+
+
         },
         //流程管理
         flowManager: {
@@ -1519,7 +1519,7 @@
                 return root.ajax({ type: 'get', url: self.url, dataType: "html" }).done(function (html) {
                     $('body').append(html);
                     mini.parse();
-    
+
                 });
             },
             addSubmitBeforeEvent: function (fn) {
@@ -1533,14 +1533,14 @@
                 var self = this;
                 self.deferred = def;
                 self.params = data;
-    
+
                 root.ajax({ type: 'get', url: '/workflow/getflowcontext.do', data: data }).done(function (r) {
                     if (r.IsPower == 0) {
                         return _mycommon.tips.warn("已经进入其他业务环节");
                     }
                     self.dataInit(r);
                     self.actionInit();
-    
+
                 });
             },
             dataInit: function (data) {
@@ -1548,10 +1548,10 @@
                 if (!data.CFlowNoteId) {
                     data.CFlowNoteId = data.FlowNoteId;
                 }
-    
+
                 $.extend(self.context, data);
                 $.extend(self.context, self.params);
-    
+
                 //简化冗余
                 if (self.context.AuditsStr) {
                     self.context.AuditsStr = '';
@@ -1568,7 +1568,7 @@
                 self.currentFlowNoteNameInit();
                 //初始化审批结果集合
                 self.auditResultInit();
-    
+
                 //if (self.context.IsQuick == 0) {
                 self.miniDialog = mini.get(self.containerId);
                 self.miniDialog.show();
@@ -1593,13 +1593,13 @@
                 }
                 $('#_audits').empty();
                 $('#_audits').append(html);
-    
+
                 $('#_savebtn').unbind('click');
                 if (self.context.State != '2') {
                     //审核结果change
                     $('input[name="auditgroup"]').click(self.auditResultEvent);
                     $($('input[name="auditgroup"]')[0]).trigger('click');
-    
+
                     //提交
                     $('#_savebtn').click(self.flowSubmit);
                     //取消
@@ -1615,12 +1615,12 @@
                 self.context.AuditValue = items[0].AuditValue;
                 self.context.CustomAuditText = items[0].CustomAuditText;
                 self.context.AuditResultFlowNoteId = items[0].AuditResultFlowNoteId;
-    
+
                 if (items[0].AutoMatchFlowNoteAndUsers != 2) {
                     //清空 选择步骤和选择人
                     $('#flowNoteContainer').empty();
                     $('#personContainer').empty();
-    
+
                     _mycommon.ajax({
                         url: "/WorkFlow/GetFlownotes.do",
                         data: self.context,
@@ -1631,7 +1631,7 @@
             flowNoteInit: function (res) {
                 var self = _mycommon.flowManager;
                 self.flownotes = res;
-    
+
                 //判断是否有默认节点，没有则默认选中第一个
                 var hasdefault = false;
                 for (var i = 0; i < res.length; i++) {
@@ -1643,7 +1643,7 @@
                 if (hasdefault == false) {
                     res[0].IsDefault = 1;
                 }
-    
+
                 //初始化html
                 for (var i = 0; i < res.length; i++) {
                     var item = res[i];
@@ -1653,10 +1653,10 @@
                         $('#flowNoteContainer').append('<input name="flownotegroup" type="radio" cvalue="' + item.FlowNoteId + '" />' + item.FlowNoteName + '');
                     }
                 }
-    
+
                 $('input[name="flownotegroup"]').click(self.flowNoteSelectEvent);
                 $('input[name="flownotegroup"][checked="checked"]').trigger('click');
-    
+
             },
             flowNoteSelectEvent: function (e) {
                 var self = _mycommon.flowManager;
@@ -1666,7 +1666,7 @@
                 });
                 self.context.FlowNoteJumpId = items[0].FlowNoteJumpId;
                 self.context.JumpFlowNoteIds = [items[0].FlowNoteId];
-    
+
                 _mycommon.ajax({
                     url: "/WorkFlow/GetAuditPersons.do",
                     data: self.context,
@@ -1680,7 +1680,7 @@
                     var item = res[i];
                     $('#personContainer').append('<input name="persongroup" type="checkbox" checked="checked" cvalue="' + item.UserId + '"/>' + item.UserName + '');
                 }
-    
+
                 $('input[name="persongroup"]').click(self.personChangeEvent);
                 self.personChangeEvent();
             },
@@ -1692,7 +1692,7 @@
                         arr.push($(this).attr('cvalue'));
                     }
                 });
-    
+
                 self.context.AuditUserIds = arr;
             },
             flowSubmit: function () {
@@ -1701,7 +1701,7 @@
                 self.context.Remark = $('#remark').val();
                 //before
                 var def = self.beforeSubmitEvent();
-    
+
                 def.done(function (o) {
                     if (o && o.name) {
                         self.context.Name = o.name;
@@ -1709,49 +1709,49 @@
                     if (o && o.id && (!self.context.Id || self.context.Id == root.guidempty)) {
                         self.context.Id = o.id;
                     }
-    
+
                     self.submitStart();
-    
+
                     var ajaxDef = _mycommon.ajax({
                         url: "/WorkFlow/SubmitFlow.do",
                         data: self.context
                     });
-    
+
                     var afterAjaxDef = ajaxDef.then(function (flowentity) {
                         root.tips.alert("提交成功");
                         self.submitEnd(true);
-    
+
                         if (flowentity && flowentity.State == 2) {
                             self.context.isOver = true;
                         }
                         return $.Deferred().resolve(self.context);
-    
+
                     }).fail(function () {
                         //alert("提交失败");
                         self.submitEnd(false);
                         return $.Deferred().fail(self.context);
                     });
-    
+
                     self.afterSubmitEvent(afterAjaxDef);
-    
+
                 }).fail(function () {
                     root.tools.console.log("事前回调阻止了工作流提交");
                 });
-    
+
             },
             beforeSubmitEvent: function () {
                 var self = _mycommon.flowManager;
-    
+
                 var def = _mycommon.eventManager.triggerEvent("_beidaWorkflowBeforeSubmitEvent", self.context);
-    
+
                 if (!def || !def.done) {
                     def = $.Deferred();
                     def.resolve();
                     return def;
                 }
-    
+
                 return def;
-    
+
             },
             submitStart: function () {
                 $('#_dialogMenu').hide();
@@ -1762,7 +1762,7 @@
                     self.miniDialog.hide();
                 }
                 $('#_dialogMenu').show();
-    
+
                 //临时处理，兼容审批容器和列表审批模式
                 if ($('#childiframe').length > 0) {
                     this.isNewDocRefresh();
@@ -1854,14 +1854,14 @@
             //to do
             compare: {
                 equal: function () {
-    
+
                 },
                 //以左数据为主，右数据在左数据中的映射有且值发生了改变，返回false
                 //PS:新增的字段不算变更;1和"1"不算变更;
                 left: function (left, right) {
                     var root = _mycommon;
                     var self = this;
-    
+
                     if (!left || !right) {
                         throw new Error('_mycommon.tools.compare.left 参数不能为空');
                     }
@@ -1873,7 +1873,7 @@
                 },
                 leftObj: function (left, right) {
                     var self = this;
-    
+
                     for (var key in left) {
                         if (!left.hasOwnProperty(key)) continue;
                         var lItem = left[key];
@@ -1883,7 +1883,7 @@
                         } else if (root.tools.type.IsObject(item)) {
                             self.leftObj(left, right);
                         }
-    
+
                     }
                 },
                 leftArr: function (left, right) {
@@ -1899,18 +1899,18 @@
                     var self = this;
                     var root = _mycommon;
                     var rurl = "";//返回的合并url
-    
+
                     if (root.tools.type.IsObject(params) === false) {
                         throw new Error('[params]参数 暂时只支持对象');
                     }
-    
+
                     var oldparams = root.getUrlParams(url);
-    
+
                     var search = "";
-    
+
                     for (var key in params) {
                         if (!params.hasOwnProperty(key)) continue;
-    
+
                         var item = params[key];
                         var value = '';
                         if (_mycommon.tools.type.IsObject(item) || _mycommon.tools.type.IsArray(item)) {
@@ -1918,15 +1918,15 @@
                         } else {
                             value = item;
                         }
-    
+
                         search += "&" + key + "=" + encodeURIComponent(value);
-    
+
                     }
-    
+
                     for (var okey in oldparams) {
                         if (!oldparams.hasOwnProperty(okey)) continue;
                         var item = oldparams[okey];
-    
+
                         var has = false;
                         for (var key in params) {
                             if (okey === key) {
@@ -1934,7 +1934,7 @@
                                 break;
                             }
                         }
-    
+
                         if (has === false) {
                             var value = '';
                             if (_mycommon.tools.type.IsObject(item) || _mycommon.tools.type.IsArray(item)) {
@@ -1942,17 +1942,17 @@
                             } else {
                                 value = item;
                             }
-    
+
                             search += "&" + okey + "=" + encodeURIComponent(value)
                         }
                     }
-    
+
                     if (url.indexOf('?') >= 0) {
                         rurl = url.substr(0, url.indexOf('?') + 1) + search.substr(1, search.length - 1);
                     } else {
                         rurl = url + "?" + search.substr(1, search.length - 1);
                     }
-    
+
                     return rurl;
                 }
             },
@@ -1968,13 +1968,13 @@
                 else {
                     for (var key in json) {
                         if (!json.hasOwnProperty(key)) continue;
-    
+
                         if (root.tools.type.IsUndefined(json[key]) || root.tools.type.IsFunction(json[key])) {
                             alert(key + ":" + json[key]);
                             //to do log
                             return;
                         }
-    
+
                         //服务器端默认只解析简单结构的json
                         if (root.tools.type.IsObject(json[key]) || root.tools.type.IsArray(json[key])) {
                             protocol[key] = JSON.stringify(json[key]);
@@ -1983,7 +1983,7 @@
                         }
                     }
                 }
-    
+
                 return protocol;
             },
             base64: {
@@ -2055,11 +2055,11 @@
                             utftext += String.fromCharCode(((c >> 6) & 63) | 128);
                             utftext += String.fromCharCode((c & 63) | 128);
                         }
-    
+
                     }
                     return utftext;
                 },
-    
+
                 // private method for UTF-8 decoding
                 _utf8_decode: function (utftext) {
                     var string = "";
@@ -2097,10 +2097,10 @@
                 s[14] = "4";  // bits 12-15 of the time_hi_and_version field to 0010
                 s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1);  // bits 6-7 of the clock_seq_hi_and_reserved to 01
                 s[8] = s[13] = s[18] = s[23] = "-";
-    
+
                 var uuid = s.join("");
                 return uuid;
-    
+
             },
             dateFormat: function (dt, fmt) {
                 var o = {
@@ -2122,20 +2122,317 @@
                     var r = false;
                     if (window.navigator.userAgent.indexOf("MSIE") >= 1)
                         r = true;
-    
+
                     if (!!window.ActiveXObject || "ActiveXObject" in window)
                         r = true;
-    
+
                     return r;
                 }
             }
-        }
-    
+        },
+
     };
+
+    window._mycommon = window.com = _mycommon
     //处理iframe加载事件，兼任ie
     window.onload = function () {
         _mycommon.eventManager.triggerEvent('iframeOnloadEvent');
     };
-})(window,jQuery)
+})(window, jQuery);
 
 
+// 添加 formManager.validate 验证组件
+(function ($, formManager) {
+    // validate === validate[] === validate[require] 验证非空 ok 
+    // validate[int] 验证非负整数 ok
+    // validate[num] 验证数字 ok
+    // validate[date] 验证日期 
+    // validate[max:5] 验证字符串长度最大为5 ok
+    // validate[min:5] 验证字符串长度最大为5 ok
+
+    // validate[nmin:5] 验证数字最大5（同时也会验证是否为数字）
+    // validate[nmax:5] 验证数字最小5（同时也会验证是否为数字）
+
+    // validate[len:5] 验证字符串长度为5 ok
+    // validate[len:0~5] 验证字符串长度为0至5 ok
+
+    // validate[nrange:0~5] 数字范围为 0-5（同时也会验证是否为数字）
+
+
+
+    // validate[phone] 验证为手机 ok
+    // validate[tel] 验证为电话
+    // validate[mail] 验证为邮箱地址
+
+    // validate[numlen:3|len:5] 多项验证（逻辑与）
+    var customValidate = []
+
+    function transformValidateStr(str) {
+        if (str === 'require') {
+            return function (str) { return str ? true : "此项为必填字段" }
+        }
+        if (str === 'num') {
+            return function (str) { return /^(\d|\-\d)\d*\.?\d*$/.test(str) ? true : str === '' ? true : "此项需要填写数字" }
+        }
+        if (str === 'int') {
+            return function (str) { return /^[0-9]*$/.test(str) ? true : "此项需要填写非负整数" }
+        }
+        if (str === 'phone') {
+            return function (str) { return /^1[34578]\d{9}$/.test(str) || /^01[34578]\d{9}$/.test(str) ? true : '请输入正确的手机号码' }
+        }
+
+        if (str === 'date') {
+            return function (str) {
+                return (
+                    /^20\d\d-[01]?\d-[0123]?\d?/.test(str) ||
+                    /^20\d\d\/[01]?\d\/[0123]?\d?/.test(str) ||
+                    /^20\d\d年[01]?\d月[0123]?\d?日/.test(str) ||
+                    str === ''
+                )
+            }
+        }
+        if (str.indexOf('max:') === 0) {
+            var n = parseInt(str.replace('max:', ''))
+            return function (str) { return str === '' || str.length <= n ? true : '此字段最大长度为' + n }
+        }
+
+        if (str.indexOf('min:') === 0) {
+            var n = parseInt(str.replace('min:', ''))
+            return function (str) { return str === '' || str.length >= n ? true : '此字段最小长度为' + n }
+        }
+
+        if (str.indexOf('len:') === 0) {
+            var n = str.replace('len:', '').split('~').map(function (v) { return parseInt(v) })
+
+            return (
+                n.length < 2
+                    ? function (str) {
+                        return str === '' || str.length == n[0] ? true : '此字段需要长度为' + n[0]
+                    }
+                    : function (str) {
+                        return (str === '') || (str.length >= n[0] && str.length <= n[1]) ? true : '此字段长度在' + n[0] + '和' + n[1] + '之间'
+                    }
+            )
+
+        }
+    }
+
+    function colorInput(dom, msg, type) {
+
+        var msgDom = document.getElementById('validate_msg_info') ? document.getElementById('validate_msg_info') : document.createElement('div')
+
+        msgDom.id = 'validate_msg_info'
+        msgDom.innerHTML = msg
+
+
+        msgDom.style.position = 'fixed'
+        msgDom.style.fontSize = '14px'
+        msgDom.style.color = "#666"
+        msgDom.style.background = '#fff'
+        msgDom.style.padding = "6px 16px"
+        msgDom.style.border = "solid 1px #ccc"
+        msgDom.style.borderRadius = '4px'
+        msgDom.style.zIndex = '999'
+
+
+        scrollToShow(dom, function () {
+            document.getElementsByTagName('body')[0].appendChild(msgDom)
+            msgDom.style.display = 'block'
+
+
+            var p0 = dom.getBoundingClientRect()
+            var p = {
+                left: p0.left,
+                right: $(window).width() - p0.right,
+                top: p0.top,
+                bottom: $(window).height() - p0.bottom
+
+            }
+            console.log(p)
+
+            if (p.top > msgDom.offsetHeight) {
+                msgDom.style.top = p.top - msgDom.offsetHeight - 4 + 'px'
+            } else {
+                msgDom.style.bottom = p.bottom - msgDom.offsetHeight + 'px'
+            }
+
+            if (p.right < p.left) {
+                msgDom.style.right = p.right + 'px'
+                msgDom.style.left = ''
+            } else {
+                msgDom.style.left = p.left + 'px'
+                msgDom.style.right = ''
+            }
+
+
+        })
+
+
+
+        if (type === 'raw') {
+            dom.style.borderColor = '#FF4949'
+        } else if (type === 'mini') {
+            $(dom).find('.mini-buttonedit-border').get(0).style.borderColor = '#FF4949'
+        } else if (type === 'mini-datagrid') {
+            $(dom).find('.mini-grid-border').get(0).style.borderColor = '#FF4949'
+        }
+
+
+
+        function cancel() {
+            msgDom.style.display = 'none'
+
+            if (type === 'raw') {
+                dom.style.borderColor = ''
+            } else if (type === 'mini') {
+                $(dom).find('.mini-buttonedit-border').get(0).style.borderColor = ''
+            } else if (type === 'mini-datagrid') {
+                $(dom).find('.mini-grid-border').get(0).style.borderColor = ''
+            }
+
+            $('body').off('mousedown', cancel)
+            $('body').off('mousewheel', cancel)
+        }
+        $('body').on('mousedown', cancel)
+        $('body').on('mousewheel', cancel)
+    }
+
+    function Input(dom, validate_arr) {
+        return {
+            dom: dom,
+            id: dom.id,
+            type: dom.className.indexOf('mini-datagrid') >= 0 ? "mini-datagrid" : dom.className.indexOf('mini-') >= 0 ? 'mini' : 'raw',
+            validate: validate_arr.map(function (e) {
+                return typeof e === 'string' ? transformValidateStr(e) : e
+            })
+        }
+    }
+
+    function validate(filter) {
+        var fil = filter ? filter : function () { return true }
+
+        // 生成验证 input 实例
+        var inputs = $('[class *= "validate["],.validate').get()
+            .map(function (e) {
+                return {
+                    dom: e,
+                    classArray: e.className.split(' ')
+                }
+            })
+            .map(function (e) {
+                var str = e.classArray.find(function (v) { return v.indexOf('validate') >= 0 })
+                return {
+                    dom: e.dom,
+                    validate: str === 'validate' ? [] : str.match(/\[([A-Za-z0-9_:|]*)\]/)[1].split('|')
+                }
+            })
+            .map(function (e) {
+                return Input(e.dom, e.validate.length === 0 ? ['require'] : e.validate)
+            })
+            .concat(customValidate.map(function (v) {
+                return Input(document.getElementById(v.id), v.check instanceof Array ? v.check : [v.check])
+            }))
+            .reduce(function (r, c) {
+                var t = r.find(function (a) { return a.dom === c.dom })
+                if (t) { t.validate = t.validate.concat(c.validate) }
+                else r.push(c)
+                return r
+            }, [])
+
+        // 进行验证
+        var info = inputs
+            .filter(fil)
+            .map(function (i) {
+                return i.validate.map(function (v) {
+                    return {
+                        id: i.id,
+                        dom: i.dom,
+                        type: i.type,
+                        check: v,
+                        msg: ''
+                    }
+                })
+            })
+            .flat()
+            .find(function (e) {
+                e.msg = e.check(
+                    // 根据type取值
+                    e.type === 'mini-datagrid'
+                        ? mini.get(e.dom).getData()
+                        : (e.type === 'mini' ? mini.get(e.dom).getValue() : e.dom.value).replace(/(^\s*)|(\s*$)/g, ""),
+                    e.dom
+                )
+                return typeof e.msg === 'string'
+            })
+
+
+        if (info) {
+            colorInput(info.dom, info.msg, info.type)
+            return info
+        } else {
+            return undefined
+        }
+    }
+
+    function scroll(d, s, callback) {
+        var top = d.scrollTop
+        if ((top - s) < 4 && (top - s) > -4) return callback()
+
+
+        // 判断 s 是否在滚动范围内
+        var min = 0
+        var max = d.scrollHeight - d.offsetHeight
+        if (min >= max) return callback()
+
+        if (s < min) s = min
+        if (s > max) s = max
+
+
+        d.scrollTop = (top + s) / 2
+
+        setTimeout(function () {
+            scroll(d, s, callback)
+        }, 30);
+    }
+
+    function scrollToShow(dom, callback) {
+        var target = dom
+        var dom = target
+        var pa = null
+        var height = 0
+        while (dom) {
+            if (dom.scrollHeight > dom.offsetHeight) {
+                pa = dom
+                break
+            } else {
+                height += dom.offsetTop
+            }
+            dom = dom.offsetParent
+        }
+
+        var h = pa.offsetHeight * 0.4
+
+        var s = height - h
+
+        scroll(pa, s, callback)
+    }
+
+
+    formManager.validate = function (arr) {
+        if (!arr) validate()
+        else {
+            validate(function (a) {
+                return arr.some(function (b) { return b.id === a.id })
+            })
+        }
+    }
+    formManager.noValidate = function (arr) {
+        validate(function (a) {
+            return arr.some(function (b) { return b !== a.id })
+        })
+    }
+    formManager.addValidate = function (arr) {
+        customValidate = customValidate.concat(arr.map(function (v) { return { id: v.id, check: v.check } }))
+    }
+
+})(jQuery, window._mycommon.formManager)
